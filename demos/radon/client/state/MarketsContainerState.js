@@ -30,6 +30,19 @@ MarketsContainerState.initializeModifiers({
     decrementCard: (current, index, payload) => {
       let {cards, location, marketId} = current;
       return {location: location, marketId: marketId, cards: cards - 1};
+    },
+    resetCards: async (current, index, payload) => {
+      function delay() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, 2000);
+        })
+      }
+
+      await delay();
+      let {location, marketId} = current;
+      return {location: location, marketId: marketId, cards: 0};
     }
   }
 })

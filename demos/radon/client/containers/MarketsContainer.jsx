@@ -11,6 +11,7 @@ class MarketsContainer extends Component {
     this.addLocation = this.addLocation.bind(this);
     this.addCard = this.addCard.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   addLocation(e){
@@ -35,12 +36,22 @@ class MarketsContainer extends Component {
     this.props.decrementCard(index);
   }
 
+  reset(e, index, childCards) {
+    e.preventDefault();
+    
+    // lazy
+    for (let i = 0; i < childCards; i++) {
+      this.props.decrementCards();
+    }
+    this.props.resetCards(index);
+  }
+
   render() {
     let markets = [];
     if(this.props.marketList){
       markets = this.props.marketList.map((market, i) => {
           let ArrMarket = objectBind(Market, i, this.props);
-          return (<ArrMarket key={i} i={i} addCard={this.addCard} deleteCard={this.deleteCard}/>)
+          return (<ArrMarket key={i} i={i} addCard={this.addCard} deleteCard={this.deleteCard} reset={this.reset}/>)
         }
       );
     }
